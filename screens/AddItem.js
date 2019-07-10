@@ -2,23 +2,9 @@ import React, {Component} from 'react';
 import {Text, View} from 'react-native';
 import {Container, Item, Input} from 'native-base';
 import { Button } from 'react-native-elements';
-import Icon from 'react-native-vector-icons/FontAwesome';
+
 type Props = {};
 
-const styles={
-    startButtonContainer:{
-        width:'100%',
-        opacity:5,
-        marginTop:15
-    },
-    startButtonShadow:{
-        padding: 15,
-        backgroundColor: '#00CCFF10',
-        marginTop: -20,
-        borderRadius: 5,
-        width: '100%',
-    }
-};
 export  default class AddItem extends Component<Props> {
     state = {textItem:'', accepted:true}
     static navigationOptions = {
@@ -32,11 +18,11 @@ export  default class AddItem extends Component<Props> {
                     justifyContent: 'center', alignItems: 'center',
                     marginBottom:130
                 }}>
-                <Text style={{fontSize: 30, fontWeight: 'bold', color:'#707070'}} >
+                <Text style={{fontSize: 30, fontWeight: 'bold', color:'#707070',fontFamily:'Avenir'}} >
                     Add new item
                 </Text>
 
-                <Text style={{fontSize: 14,color:'#999999'}} >
+                <Text style={{fontSize: 14,color:'#999999', fontFamily:'Avenir'}} >
                     Subtitle goes here
                 </Text>
                 </View>
@@ -58,23 +44,28 @@ export  default class AddItem extends Component<Props> {
                     {this.validationMessage()}
                 </View>
 
-                <View style={styles.startButtonContainer}>
                     <Button
-                        icon={{
-                            name: "arrow-right",
-                            size: 15,
-                            color: "white"
-                        }}
-                        title="Add new item"
+                        title="Add"
+                        titleStyle={{fontSize:20,fontFamily:'Avenir'}}
                         buttonStyle={{ width: '100%', backgroundColor:'#1D7281',
-                            padding: 10, borderRadius:5 ,height:60}}
+                            padding: 10, borderRadius:5 ,height:60, marginTop:15,
+                            shadowColor: "#000",
+                            shadowOffset: {
+                                width: 0,
+                                height: 10,
+                            },
+                            shadowOpacity: 0.2,
+                            shadowRadius: 5,
+
+                            elevation: 8,
+                        }}
                         onPress={()=>{
                             this.props.navigation.navigate('HomePage',
                                 {listItem: this.state.textItem})
                         }}
-                    />
-                    <View style={styles.startButtonShadow}></View>
-                </View>
+                    >
+                    </Button>
+
 
                 </View>
             </Container>
@@ -86,9 +77,11 @@ export  default class AddItem extends Component<Props> {
         this.setState({
             value: text,
         });
+
         //the temp here is to check if the user entered an empty string
         //so if it's empty we don't continue with the process, otherwise we are good
         //even if there's white space before the text i assumed it's okay to add it anyway.
+
         let temp=text;
         if(temp.trim()) {
             let reg = /^([^0-9]*)$/ ;
@@ -107,6 +100,7 @@ export  default class AddItem extends Component<Props> {
         }
     };
 
+    //For displaying the error message to the user
     validationMessage(){
         if(this.state.accepted===false) {
             return (

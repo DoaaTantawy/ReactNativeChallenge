@@ -1,23 +1,10 @@
 import React, {Component} from 'react';
 import {Text, View} from 'react-native';
-import {Container, Card, CardItem, Content, Left,Body, Right} from 'native-base';
+import {Container, Card, CardItem, Content, Body} from 'native-base';
 import { Button } from 'react-native-elements';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-ionicons'
 type Props = {};
 
-const styles={
-    startButtonContainer:{
-        width:'100%',
-        opacity:5
-    },
-    startButtonShadow:{
-        padding: 15,
-        backgroundColor: '#00CCFF10',
-        marginTop: -20,
-        borderRadius: 5,
-        width: '100%',
-    }
-};
 
 export  default class HomePage extends Component<Props> {
     state = {itemsList : ["expedita", "nisi", "fuga", "repellat", "placeat"]}
@@ -31,11 +18,12 @@ export  default class HomePage extends Component<Props> {
 
             <Container style={{ backgroundColor:'#FAFAFA',marginLeft:24, marginRight: 23}}>
 
-             <Text style={{fontSize: 30, fontWeight: 'bold',color:'#1D7281', marginTop:36}} >
+             <Text style={{fontSize: 30, fontWeight: 'bold',
+                 color:'#1D7281', marginTop:36, fontFamily:'Avenir'}} >
                 Items
             </Text>
 
-                <Text style={{fontSize: 14,color:'#999999'}} >
+                <Text style={{fontSize: 14,color:'#999999', fontFamily:'Avenir'}} >
                     Subtitle goes here
                 </Text>
 
@@ -48,22 +36,32 @@ export  default class HomePage extends Component<Props> {
                 </Card>
 
 
-                <View style={styles.startButtonContainer}>
-                    <Button
-                        icon={{
-                            name: "arrow-right",
-                            size: 15,
-                            color: "white"
-                        }}
-                        title="Add new item"
-                        buttonStyle={{ width: '100%', backgroundColor:'#00CCFF',
-                            padding: 10, borderRadius:5, height:60}}
-                        onPress={()=>{
-                            this.props.navigation.navigate('AddItem')
-                        }}
-                    />
-                    <View style={styles.startButtonShadow}></View>
-                </View>
+                <Button
+                    icon={
+                        <Icon name="add-circle"
+                        size={36}
+                        color= "white"
+                        />
+                    }
+                    title="Add new item"
+                    titleStyle={{fontSize:20, paddingLeft:10, fontFamily:'Avenir'}}
+                    buttonStyle={{ width: '100%', backgroundColor:'#00CCFF',
+                        padding: 10, borderRadius:5 ,height:60,
+                        shadowColor: "#0CF",
+                        shadowOffset: {
+                            width: 0,
+                            height: 2,
+                        },
+                        shadowOpacity: 0.2,
+                        shadowRadius: 5,
+
+                        elevation: 4,
+                    }}
+                    onPress={()=>{
+                        this.props.navigation.navigate('AddItem')
+                    }}
+                >
+                </Button>
 
             </Container>
 
@@ -71,7 +69,7 @@ export  default class HomePage extends Component<Props> {
         );
     }
 
-
+    // if there's a new item came from the second screen, we add it to the list from here
     addItemsToList(){
         let newItem=this.props.navigation.getParam('listItem');
         if(newItem) {
@@ -80,6 +78,8 @@ export  default class HomePage extends Component<Props> {
 
     }
 
+
+    //displaying the list on the screen
     returnData() {
         return (
 
